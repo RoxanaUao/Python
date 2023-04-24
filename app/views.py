@@ -17,15 +17,24 @@ spec = APISpec(
     plugins=[FlaskPlugin(),MarshmallowPlugin()]
 )
 
+@app.route('/articlePage')
+def articlePage():
+	resultado = data.articles()
+	return render_template("articlePage.html", resultado = resultado)
 @app.route('/')
+def base():
+    resultado = data.articles()
+    return render_template("index.html", resultado = resultado)
+
+
+@app.route('/index')
 def index():
     resultado = data.articles()
     return render_template("index.html", resultado = resultado)
 
 @app.route('/article/<article>')
 def about(article):
-    return render_template("article.html", article = article)
-
+    return render_template("article.html", article = article) 
 
 @app.route('/api/swagger.json')
 def create_swagger_spec():
